@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task list</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome-all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <ul class="nav navbar-nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                            role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                            role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                            role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="tab-content" id="pills-tabContent">
+            <!-- pill para añadir y mostrar la lista de tareas -->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <!-- div input para añadir una tarea -->
+                <div class="add-to-do mt-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i id="btnAddTask" class="fa far fa-plus-square"></i></span>
+                        </div>
+                        <input class="form-control" id="inputAddTask" type="text" name="" placeholder="Agregar">
+                    </div>
+                </div>
+                <div id="listaTareas" class="mt-3">
+
+                    
+                </div>
+
+                <template id="templateTasks">
+                    <div class="alert alert-danger p-1 my-1"  id="divTarea"> 
+                        <div class="row">
+                            <div class="col-2 d-flex">
+                                <i class="far fa-circle readId my-auto" role="button"></i>
+                            </div>
+                            <div class="col-8">
+                                <div class="row p-0">
+                                    <p class="m-0 p-0">Tarea 1</p>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-4"><h6 class="my-0 ml-auto text-center"><small>2:00</small> </h6></div>
+                                    <div class="col-4"><h6 class="my-0 ml-auto text-center"><small><i class="fas fa-redo-alt readId"></i></small></h6></div>                                    
+                                    <div class="col-4"><h6 class="my-0 ml-auto text-center"><small><i class="fas fa-edit  readId" role="button"></i></small> </h6></div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex">
+                                <i class="fas fa-play readId my-auto ml-auto pr-1"></i>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="fixed-bottom container" id="divSelecOptionsTask">
+                    <div class="row d-flex justify-content-center border"  >Selecciona la duración</div>
+                    <div class="row ">
+                        <div class="col d-flex justify-content-center border" role="button">
+                            <span class="my-auto">Corta</span>
+                        </div>
+                        <div class="col d-flex justify-content-center border" role="button">
+                            <span class="my-auto">Mediana</span>
+                        </div>
+                        <div class="col d-flex justify-content-center border" role="button">
+                            <span class="my-auto">larga</span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-8 d-flex justify-content-center" role="button">
+                            <span class="my-auto">definir</span>
+                        </div>
+                        <div class="col-4 d-flex justify-content-center" id="btnListo" role="button">
+                            <span class="my-auto">Listo</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div>
+        </div>
+    </div>
+
+
+
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

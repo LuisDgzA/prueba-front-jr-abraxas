@@ -1,0 +1,29 @@
+
+
+#divSelecOptionsTask{
+    height: 120px;
+    visibility: hidden;
+}
+
+#divTarea p{
+    font-size: 1.1em;
+}
+
+#btnListo{
+    background: #058ed9;
+    color: #fff;
+}
+
+#divSelecOptionsTask .row:nth-child(1){
+    height: 20%;
+    font-size: 0.7em;
+}
+
+#divSelecOptionsTask .row:nth-child(2) {
+    height: 40%;
+}
+
+#divSelecOptionsTask .row:nth-child(3) {
+    height: 40%;
+}
+
