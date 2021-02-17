@@ -9,6 +9,14 @@
     font-size: 1.1em;
 }
 
+.alert-pendiente{
+    background: #F2EFE9;
+}
+
+.alert-inicializada {
+    background: #f8d7da;
+}
+
 #btnListo{
     background: #058ed9;
     color: #fff;
