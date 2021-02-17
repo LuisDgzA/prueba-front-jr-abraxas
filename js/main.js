@@ -22,7 +22,8 @@ var tareas = {
     1613435827964 : {
         id: 1613435827964,
         texto: 'Lorem akjhdkash ajhgsdjkas dhajs djkashd ashdj asdhjas dhjkashd ashdja shdjkasgdhasg dhasgdh',
-        estado: 'pendiente'
+        estado: 'pendiente',
+        duracion: '1:25'
     }
 };
 
@@ -134,6 +135,61 @@ formularioEdit.addEventListener("submit", e=> {
     $("#modalEdit").modal("toggle");
     displayTareas();
 })
+
+const start = document.getElementById("start");
+const reset = document.getElementById("reset");
+
+const hour = document.getElementById("pickHora");
+const minute = document.getElementById("pickMinuto");
+const second = document.getElementById("pickSegundo");
+
+var startTimer = null;
+
+function timer(){
+    if(second.value != 0){
+        second.value--;
+    }else if(minute.value != 0 && second.value == 0){
+        second.value = 59;
+        minute.value--;
+    }else if(hour.value != 0 && minute.value == 0 && second.value == 0){
+        second.value = 59;
+        minute.value = 59;
+        hour.value--;
+    }
+    if(hour.value == 0 && minute.value == 0 && second.value == 0){
+        clearInterval(startTimer);
+    }
+    //minute.value--;
+}
+
+function resetTimer(){
+    clearInterval(startTimer);
+}
+
+function addZero(num){
+    if(num < 10){
+        return "0"+num;
+    }else{
+        return num;
+    }
+}
+
+start.addEventListener("click", e =>{
+    if((hour.value == 0 && minute.value == 0) || (hour.value > 2) || (hour.value < 0) || (minute.value > 59) || (minute.value < 0)){
+        alert("Valores no validos");
+        return;
+    }
+    
+    startTimer = setInterval(timer, 1000)
+    
+    
+})
+
+reset.addEventListener("click", e =>{
+    resetTimer()
+})
+
+
 
 
 
