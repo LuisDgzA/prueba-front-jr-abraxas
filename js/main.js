@@ -13,7 +13,7 @@ inputAddTask.addEventListener('keyup' , function(){
 //     if(document.getElementById("divSelecOptionsTask").hasFocus){
 //         alert("tiebe")
 //     }else{
-//         //document.getElementById("divSelecOptionsTask").style.visibility = "hidden"; 
+//         document.getElementById("divSelecOptionsTask").style.visibility = "hidden"; 
 //     }
     
 // })

@@ -47,7 +47,7 @@
                 <div class="add-to-do mt-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i id="btnAddTask" class="fa far fa-plus-square" ></i></span>
+                            <span class="input-group-text"><i id="btnAddTask" class="fa far fa-plus-square" role="button"></i></span>
                         </div>
                         <input class="form-control" id="inputAddTask" type="text" name="" placeholder="Agregar">
                     </div>
@@ -57,12 +57,12 @@
 
 
                 </div>
-                <div class="d-flex">
-                    <input id="pickHora" type="number" max="2" min="0" class="time" value="0"><p id="p1" class="semicolon">:</p><input id="pickMinuto" type="number" max="59" min="0" class="time" value ="0"><p id="p1" class="semicolon">:</p><input id="pickSegundo" type="number" max="59" min="0" class="time" value ="60">
+                <!-- <div class="d-flex">
+                    <input id="pickHora" type="number" max="2" min="0" class="time text-center" value="0"><p id="p1" class="semicolon my-auto mx-1 font-weight-bold"> : </p><input id="pickMinuto" type="number" max="59" min="0" class="time text-center" value ="0"><p id="p1" class="semicolon my-auto mx-1 font-weight-bold">:</p><input id="pickSegundo" type="number" max="59" min="0" class="time" value ="60">
                     <button id="start" >inicio</button>
                     <button id="reset" >reset</button>
 
-                </div>
+                </div> -->
                 
 
                 <!-- template que se replicara para la creación de tareas -->
@@ -118,6 +118,13 @@
                                         <textarea class="form-control" id="inputEditDescripcion" ></textarea>
                                         
                                     </div>
+                                    <div class="d-flex justify-content-between" id="divEditarDuracion">
+                                        <label ">Duracion</label>
+                                        <span id="spanEditHora"><input id="pickHora" type="number" max="2" min="0" class="time text-center" ></span>
+                                        <p id="p1" class="semicolon my-auto mx-1 font-weight-bold"> : </p>
+                                        <span id="spanEditMinuto"><input id="pickMinuto" type="number" max="59" min="0" class="time text-center" ></span>
+                                        
+                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -133,13 +140,13 @@
                     <div class="row d-flex justify-content-center border">Selecciona la duración</div>
                     <div class="row ">
                         <div class="col d-flex justify-content-center border" role="button">
-                            <span class="my-auto" data-toggle="modal" data-target="#modalEdit">Corta</span>
+                            <span class="my-auto" id="defCorta">Corta</span>
                         </div>
                         <div class="col d-flex justify-content-center border" role="button">
-                            <span class="my-auto">Mediana</span>
+                            <span class="my-auto" id="defMediana">Mediana</span>
                         </div>
                         <div class="col d-flex justify-content-center border" role="button">
-                            <span class="my-auto">larga</span>
+                            <span class="my-auto" id="defLarga">larga</span>
                         </div>
                     </div>
                     <div class="row ">
@@ -165,7 +172,7 @@
 
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/second.js"></script>
 </body>
 
 </html>
