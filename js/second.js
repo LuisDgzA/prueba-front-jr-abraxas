@@ -838,13 +838,13 @@ pillGrafica.addEventListener("click", () =>{
     
     
     
-    var Lunes = ;;
-    var Martes = ;;
-    var Miercoles = ;;
-    var Jueves = ;;
-    var Viernes = ;;
-    var Sabado = ;;
-    var Domingo = ;;
+    var Lunes = 0;
+    var Martes = 0;
+    var Miercoles = 0;
+    var Jueves = 0;
+    var Viernes = 0;
+    var Sabado = 0;
+    var Domingo = 0;
     Object.values(tareas).forEach(tarea =>{    
         if(tarea.estado == "realizada" && tarea.fechaTerminoUnix >= fechaInicioSemana){
             
