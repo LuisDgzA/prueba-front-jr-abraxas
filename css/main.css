@@ -1,8 +1,17 @@
 
-
 #divSelecOptionsTask{
     height: 120px;
     visibility: hidden;
+    background: #fff;
+}
+
+#listaTareas{
+    overflow: auto;
+    overflow-x: hidden;
+    /* mozilla*/
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
 }
 
 .divTarea p{
@@ -15,6 +24,10 @@
 
 .alert-inicializada {
     background: #f8d7da;
+}
+
+.alert-realizada{
+    background: #dbf4a7;
 }
 
 #btnListo{
@@ -59,6 +72,30 @@
 
 }
 
-#divEditarDuracion{
-   
+
+.icon-basura{
+    color: #dc3545;
 }
+
+.icon-reset{
+    color: #ffc107;
+}
+
+.icon-play{
+    color: #218838;
+}
+
+.icon-edit{
+    color: #19535F;
+}
+
+.icon-check{
+    color: #2e86ab;
+}
+
+.btn-primary{
+    background: #222E50;
+    border: 1px solid grey;
+    border-radius: 0px;
+}
+
