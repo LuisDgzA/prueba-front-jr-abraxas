@@ -888,9 +888,9 @@ pillGrafica.addEventListener("click", () =>{
         // },
 
         data: {
-        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sébado', 'Domingo'],
         datasets: [{
-            label: 'My First dataset',
+            label: 'Tareas realizadas',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: arrayDatos
