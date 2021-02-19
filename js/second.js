@@ -5,6 +5,9 @@ const formularioEdit = document.getElementById("formEdit");
 const buttonCorta = document.getElementById("defCorta");
 const buttonMediana = document.getElementById("defMediana");
 const buttonLarga = document.getElementById("defLarga");
+const inputPersonalizadaHora = document.getElementById("personalizadaHora");
+const inputPersonalizadaMinuto = document.getElementById("personalizadaMinuto");
+const inputPersonalizadaSegundo = document.getElementById("personalizadaSegundo");
 const buttonListo = document.getElementById("btnListo");
 const buttonFiltroCorta = document.getElementById("btnFiltroCorta");
 const buttonFiltroMedia = document.getElementById("btnFiltroMedia");
@@ -14,33 +17,110 @@ const pillHistorial = document.getElementById("pillHistorial");
 const divHistorial = document.getElementById("historial");
 const pillGrafica = document.getElementById("pillGrafica");
 
-
-
-
+var flagCorta = false;
+var flagMediana = false;
+var flagLarga = false;
+var flagPersonalizada = false;
+var flagTareaEnCurso = false;
 
 var startTimer = null;
 
-var tareas = {
-    1613435827964 : {
-        id: 1613435827964,
-        texto: 'Lorem akjhdkash ajhgsdjkas dhajs djkashd ashdj asdhjas dhjkashd ashdja shdjkasgdhasg dhasgdh',
-        estado: 'pendiente',
-        duracion: '1:25:00',
-        tiempoRestante : ''
+
+var arrayNombresTareas = ["Ir al mercado",
+"Cocinar",
+"Barrer",
+"Tarea de inglés",
+"Sacudir muebles",
+"Verificar carro",
+"Revisar correo electrónico",
+"Responder correos",
+"Sacar al perro",
+"Limpiar el patio",
+"Recoger ropa de lavandería",
+"Regresar paquete en estafeta",
+"Doblar ropa",
+"Guardar el super ",
+"Acomodar juguetes",
+"Levantar trastes ",
+"Registrarme en curso",
+"Hablarle a mis padres", 
+"Ir a la cafetería con mi amiga",
+"Cromprar dulces",
+"Llevar a la estética al perro",
+"Sacar la basura",
+"Hacer ejercicio",
+"Comprar ropa",
+"Estudiar",
+"Practicar box",
+"Leer",];
+var arrayDuracion = ["0:30:00", "0:45:00", "1:00:00"];
+
+
+var tareas = {};
+/** funcion para crear las 50 tareas random */
+function randomTareas(){
+    var fecha = new Date();
+    
+    var diaActualSemana = fecha.getDay();
+    if(diaActualSemana == 0){
+        diaActualSemana = 7;
     }
-};
+    diaActualSemana--;
+    
+      
+    var fecha2 = new Date();
+    fecha2 = fecha2.setDate(fecha2.getDate()-diaActualSemana);
+    var fechaInicioSemana = new Date(fecha2);
+    //console.log(fechaInicioSemana)
+    
+    
+    for(var i = 0; i < 50; i++){
+        var numberRandom = Math.floor(Math.random() * (6 - 0 + 1)) + 0;
+        
+        var fechaRandom = new Date();
+        fechaRandom = fechaRandom.setDate(fechaInicioSemana.getDate()+numberRandom)
+        var fechaAuxRandom = new Date(fechaRandom);
+       
+        
+        
+
+        const tarea = {
+            id: i,
+            texto: arrayNombresTareas[Math.floor(Math.random() * arrayNombresTareas.length)],
+            estado: "realizada",
+            duracion: arrayDuracion[Math.floor(Math.random() * arrayDuracion.length)],
+            tiempoRestante : "0:00:00",
+            fechaFinal : fechaAuxRandom.getDate() + " / " + (fechaAuxRandom.getMonth()+1) + " / " + fechaAuxRandom.getFullYear(),    
+            diaSemana : fechaAuxRandom.getDay(),    
+            fechaTerminoUnix : fechaRandom
+        } 
+        
+        tareas[tarea.id] = tarea;
+    }
+}
+
+randomTareas();
 
 
+// tareas = {
+//     1613435827964 : {
+//         id: 1613435827964,
+//         texto: 'Lorem akjhdkash ajhgsdjkas dhajs djkashd ashdj asdhjas dhjkashd ashdja shdjkasgdhasg dhasgdh',
+//         estado: 'pendiente',
+//         duracion: '1:25:00',
+//         tiempoRestante : ''
+//     }
+// };
+
+/** obtener las tareas de localstorage si existen */
 document.addEventListener("DOMContentLoaded", () => {
     if(localStorage.getItem("tareas")){
         tareas = JSON.parse(localStorage.getItem("tareas"));
     }
     loadTareas();
     
-    
-
-    //displayTareas();
 })
+
 /** funcion que recorre la coleccion de objetos y carga las tareas  */
 function loadTareas(){
     
@@ -50,17 +130,20 @@ function loadTareas(){
     })
     
 }
+
 /** evento para mostrar el div de seleccionar tiempo */
 inputAddTask.addEventListener('keyup' , function(){
     document.getElementById("divSelecOptionsTask").style.visibility = "visible"; 
 })
 
+/** evento para ocultar el div de seleccionar tiempo */
 inputAddTask.addEventListener('blur' , function(){
     if(inputAddTask.value.trim() === ""){
         document.getElementById("divSelecOptionsTask").style.visibility = "hidden"; 
     }
     
 })
+
 /** funcion que añade una sola tarea al DOM */
 function addToDo(id, texto, estado, duracion, tiempoRestante){
      var arrayTiempo
@@ -97,7 +180,7 @@ function addToDo(id, texto, estado, duracion, tiempoRestante){
                         </div>
                         <div class="row mt-2">
                             <div class="col-3">
-                                <h6 class="my-0 text-center"><small><span class="nuevoTiempo">${arrayTiempo[0]}</span>:<span class="nuevoTiempo">${arrayTiempo[1] < 10 ? "0" + arrayTiempo[1] : arrayTiempo[1]}</span>:<span class="nuevoTiempo">${arrayTiempo[2] < 10 ? "0" + arrayTiempo[2] : arrayTiempo[2]}</span></small> </h6>
+                                <h6 class="my-0 text-center"><small><span class="nuevoTiempo">${arrayTiempo[0]}</span>:<span class="nuevoTiempo">${arrayTiempo[1] < 10 ? "0" + Number.parseInt(arrayTiempo[1]) : arrayTiempo[1]}</span>:<span class="nuevoTiempo">${arrayTiempo[2] < 10 ? "0" + Number.parseInt(arrayTiempo[2]) : arrayTiempo[2]}</span></small> </h6>
                             </div>
                             <div class="col-3">
                                 <h6 class="my-0 text-center">
@@ -127,11 +210,13 @@ function addToDo(id, texto, estado, duracion, tiempoRestante){
     listaTareas.insertAdjacentHTML(position,item);
     
 }
+
 /** funcion que recopila los datos de la tarea para poder añadirla */
 const setTarea = () =>{
+    
     if(inputAddTask.value.trim() === ""){
         return;
-    }else if(flagCorta == false && flagMediana == false && flagLarga == false){
+    }else if(flagCorta == false && flagMediana == false && flagLarga == false && flagPersonalizada == false){
         alert("Debe de escoger la duración de la tarea");
         return;
     }
@@ -152,6 +237,10 @@ const setTarea = () =>{
         buttonLarga.parentNode.classList.remove("selected");
 
     }
+    if(flagPersonalizada == true){
+        duracion = inputPersonalizadaHora.value + ":" + inputPersonalizadaMinuto.value + ":" + inputPersonalizadaSegundo.value;
+        flagPersonalizada = false;
+    }
 
     const tarea = {
         id: Date.now(),
@@ -164,26 +253,32 @@ const setTarea = () =>{
     localStorage.setItem("tareas", JSON.stringify(tareas));
     inputAddTask.value = "";    
     addToDo(tarea.id, tarea.texto, tarea.estado, tarea.duracion);
+    inputPersonalizadaHora.value = 0;
+    inputPersonalizadaMinuto.value = 0;
+    inputPersonalizadaSegundo.value = 0;
     document.getElementById("divSelecOptionsTask").style.visibility = "hidden"; 
     
     
 }
+
 /** evento que se dispara al presionar enter sobre el input para fijar una tarea */
 inputAddTask.addEventListener("keyup", e => {
     if(e.keyCode == 13){
         setTarea();        
     }
 })
+
 /** funcion que se dispara al dar click sobre el boton al lado del input para añadir una tarea */
 btnAddTask.addEventListener("click", e => {
     setTarea();
 })
-/* evento que me permitira saber que boton fue presionado y realizar funciones despues de esto*/
+
+/* evento que me permitira saber que icono fue presionado */
 listaTareas.addEventListener("click", e => {
     btnAccion(e);
 })
 
-/** desencadena funciones en base al boton presionado */
+/** desencadena funciones en base al icono presionado */
 const btnAccion = e =>{
     if(e.target.classList.contains("fa-check")){
         completeTask(e);
@@ -245,6 +340,8 @@ formularioEdit.addEventListener("submit", e=> {
     
 })
 
+
+/** funcion que comenzara la cuenta regrsiva de una tarea */
 function timer(id){
     const div = document.getElementById(id);
     var second = Number.parseInt(div.querySelectorAll(".nuevoTiempo")[2].textContent);    
@@ -277,18 +374,22 @@ function timer(id){
         div.querySelectorAll(".nuevoTiempo")[0].textContent = hour;
     }else if((hour==0)&&(minute == 0)&&(second==0))
 	{
+        /** marcar tarea como finalizada */
 		clearInterval(startTimer);
         var fecha = new Date();
 		tareas[id].estado = "realizada";
-        tareas[id].tiempoRestante = "0:0:0";
-        tareas[id].diaSemana = fecha.getDay();    
+        tareas[id].tiempoRestante = "0:00:00";
+        tareas[id].diaSemana = fecha.getDay();  
+        tareas[id].fechaFinal = fecha.getDate() + " / " + ((fecha.getMonth()+1) < 10 ? "0" + (fecha.getMonth()+1) : (fecha.getMonth()+1)) + " / " + fecha.getFullYear();    
+
         tareas[id].fechaTerminoUnix = Date.now();
         localStorage.setItem("tareas", JSON.stringify(tareas));        
         listaTareas.removeChild(div);
 	}
     
 }
-var flagTareaEnCurso = false;
+
+
 /** pone una tarea en marcha */
 function playTask(element){
     Object.values(tareas).forEach(tarea =>{
@@ -336,7 +437,7 @@ function pauseTask(element){
     clearInterval(startTimer);
 }
 
-/** reinicia el valor del reloj */
+
 function resetTask(element){
     clearInterval(startTimer);
     var id = element.target.dataset.id;
@@ -356,7 +457,7 @@ function resetTask(element){
     
 }
 
-/** elimina una tarea */
+
 function deleteTask(element){
     var id = element.target.dataset.id;
     
@@ -367,7 +468,7 @@ function deleteTask(element){
     localStorage.setItem("tareas", JSON.stringify(tareas));
 }
 
-/** completa una tarea */
+
 function completeTask(element){
     clearInterval(startTimer);
     var id = element.target.dataset.id;
@@ -401,10 +502,9 @@ function editTask(element){
         }
         $("#modalEdit").modal();
 }
-var flagCorta = false;
-var flagMediana = false;
-var flagLarga = false;
 
+
+/** verificaciones de los botones seleccionados para la duracion de la tarea */
 buttonCorta.addEventListener("click", e =>{
     if(flagMediana == true){
         buttonMediana.parentNode.classList.remove("selected");
@@ -412,6 +512,11 @@ buttonCorta.addEventListener("click", e =>{
     }else if(flagLarga == true){
         buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
+    }else if(flagPersonalizada == true){
+        inputPersonalizadaHora.value = "";
+        inputPersonalizadaMinuto.value = "";
+        inputPersonalizadaSegundo.value = "";
+        flagPersonalizada = false;
     }
     e.target.parentNode.classList.add("selected");
     flagCorta = true;
@@ -424,6 +529,11 @@ buttonMediana.addEventListener("click", e =>{
     }else if(flagLarga == true){
         buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
+    }else if(flagPersonalizada == true){
+        inputPersonalizadaHora.value = "";
+        inputPersonalizadaMinuto.value = "";
+        inputPersonalizadaSegundo.value = "";
+        flagPersonalizada = false;
     }
     e.target.parentNode.classList.add("selected");
     flagMediana = true;
@@ -436,15 +546,64 @@ buttonLarga.addEventListener("click", e =>{
     }else if(flagMediana == true){
         buttonMediana.parentNode.classList.remove("selected");  
         flagMediana = false;
+    }else if(flagPersonalizada == true){
+        inputPersonalizadaHora.value = "";
+        inputPersonalizadaMinuto.value = "";
+        inputPersonalizadaSegundo.value = "";
+        flagPersonalizada = false;
     }
     e.target.parentNode.classList.add("selected");
     flagLarga = true;
 })
 
-buttonListo.addEventListener("click", e =>{
-    if(flagCorta == false && flagMediana == false && flagLarga == false){
-        alert("Debe de escoger la duración de la tarea");
+inputPersonalizadaHora.addEventListener("change", e => {
+    if(flagCorta == true){
+        buttonCorta.parentNode.classList.remove("selected");
+        flagCorta = false;
+    }else if(flagMediana == true){
+        buttonMediana.parentNode.classList.remove("selected");  
+        flagMediana = false;
+    }else if(flagLarga == true){
+        buttonLarga.parentNode.classList.remove("selected");  
+        flagLarga = false;
     }
+    flagPersonalizada = true;
+})
+
+inputPersonalizadaMinuto.addEventListener("change", e => {
+    if(flagCorta == true){
+        buttonCorta.parentNode.classList.remove("selected");
+        flagCorta = false;
+    }else if(flagMediana == true){
+        buttonMediana.parentNode.classList.remove("selected");  
+        flagMediana = false;
+    }else if(flagLarga == true){
+        buttonLarga.parentNode.classList.remove("selected");  
+        flagLarga = false;
+    }
+    flagPersonalizada = true;
+})
+
+inputPersonalizadaSegundo.addEventListener("change", e => {
+    if(flagCorta == true){
+        buttonCorta.parentNode.classList.remove("selected");
+        flagCorta = false;
+    }else if(flagMediana == true){
+        buttonMediana.parentNode.classList.remove("selected");  
+        flagMediana = false;
+    }else if(flagLarga == true){
+        buttonLarga.parentNode.classList.remove("selected");  
+        flagLarga = false;
+    }
+    flagPersonalizada = true;
+})
+
+buttonListo.addEventListener("click", e =>{
+    if(flagCorta == false && flagMediana == false && flagLarga == false && flagPersonalizada == false){
+        alert("Debe de escoger la duración de la tarea");
+        return;
+    }
+    
     setTarea();    
 })
 
@@ -580,6 +739,7 @@ buttonFiltroTodas.addEventListener("click", () =>{
     })
 })
 
+/** funcion que se dispara al seleccionar el pill historial y agrega las tareas realizadas al historial */
 function addTaskHistorial(texto, duracion, tiempoRestante, fechaFinal){
     var arrayTiempo = duracion.split(":");
     var arrayTiempoRestante = tiempoRestante.split(":");
@@ -599,7 +759,7 @@ function addTaskHistorial(texto, duracion, tiempoRestante, fechaFinal){
                         </div>
                         <div class="row mt-2">
                             <div class="col-6">
-                                <h6 class="my-0 text-center"><small><span class="nuevoTiempo">${arrayTiempo[0]}</span>:<span class="nuevoTiempo">${arrayTiempo[1]}</span>:<span class="nuevoTiempo">${arrayTiempo[2]}</span></small> </h6>
+                                <h6 class="my-0 text-center"><small><span class="nuevoTiempo">${arrayTiempo[0]}</span>:<span class="nuevoTiempo">${arrayTiempo[1] < 10 ? "0" + Number.parseInt(arrayTiempo[1]) : arrayTiempo[1]}</span>:<span class="nuevoTiempo">${arrayTiempo[2] < 10 ? "0" + Number.parseInt(arrayTiempo[2]) : arrayTiempo[2]}</span></small> </h6>
                                 <h6 class="my-0 text-center"><small>Tiempo definido</small></h6>
                             </div>
                             <div class="col-6">
@@ -620,17 +780,9 @@ function addTaskHistorial(texto, duracion, tiempoRestante, fechaFinal){
 }
 
 
-pillHistorial.addEventListener("click", () =>{
-    Object.values(tareas).forEach(tarea =>{    
-        if(tarea.estado == "realizada" ){
-            addTaskHistorial(tarea.texto, tarea.duracion, tarea.tiempoRestante, tarea.fechaFinal);
-        }
-        
-        
-    })
-})
 
 
+/** guardar los datos y pausar antes de salir de la ventana */
 window.addEventListener('beforeunload', (event) => {
     var id, div;
     Object.values(tareas).forEach(tarea =>{
@@ -655,6 +807,8 @@ window.addEventListener('beforeunload', (event) => {
     event.returnValue = `Are you sure you want to leave?`;
 });
 
+
+
 pillHistorial.addEventListener("click", () =>{
     divHistorial.innerHTML = "";
     Object.values(tareas).forEach(tarea =>{    
@@ -669,28 +823,31 @@ pillHistorial.addEventListener("click", () =>{
 pillGrafica.addEventListener("click", () =>{   
     
     var fecha = new Date();
-    var diaActualMes = fecha.getDate();
+    
     var diaActualSemana = fecha.getDay();
     if(diaActualSemana == 0){
         diaActualSemana = 7;
     }
     diaActualSemana--;
     
-    var diaInicialSemanaMes = diaActualMes - diaActualSemana;   
       
     var fecha2 = new Date();
-    fecha2 = fecha2.setDate(fecha2.getDate()-diaInicialSemanaMes);
+    fecha2 = fecha2.setDate(fecha2.getDate()-diaActualSemana);
     var fechaInicioSemana = new Date(fecha2);
+    fechaInicioSemana.setHours(0,0,0,0);
     
-    var Lunes = 0;
-    var Martes = 0;
-    var Miercoles = 0;
-    var Jueves = 0;
-    var Viernes = 0;
-    var Sabado = 0;
-    var Domingo = 0;
+    
+    
+    var Lunes = 1;
+    var Martes = 1;
+    var Miercoles = 1;
+    var Jueves = 1;
+    var Viernes = 1;
+    var Sabado = 1;
+    var Domingo = 1;
     Object.values(tareas).forEach(tarea =>{    
         if(tarea.estado == "realizada" && tarea.fechaTerminoUnix >= fechaInicioSemana){
+            
             if(tarea.diaSemana == 0){
                 Domingo++;
             }else if(tarea.diaSemana == 1){
@@ -709,24 +866,36 @@ pillGrafica.addEventListener("click", () =>{
         }
         
     })
+    
 
 
-    var datos = [Lunes,Martes,Miercoles,Jueves,Viernes,Sabado,Domingo];
+    var arrayDatos = [Lunes,Martes,Miercoles,Jueves,Viernes,Sabado,Domingo];
+    console.log(arrayDatos)
     var ctx = document.getElementById("graficaRealizadas").getContext('2d');
     var grafica = new Chart(ctx, {
         // The type of chart we want to create
         type: 'bar',
 
         // The data for our dataset
+        // data: {
+        //     labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sebado', 'Domingo'],
+        //     datasets: [{
+        //         label: 'Tareas realizadas',
+        //         backgroundColor: 'rgb(255, 99, 132)',
+        //         borderColor: 'rgb(255, 99, 132)',
+        //         data: [1,2,3,4,5,6,7]
+        //     }]
+        // },
+
         data: {
-            labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-            datasets: [{
-                label: 'Tareas realizadas',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: datos
-            }]
-        },
+        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: arrayDatos
+        }]
+    },
 
         // Configuration options go here
         options: {

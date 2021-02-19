@@ -63,13 +63,15 @@
 }
 
 #spanEditHora::after {
-    content: " hrs";
-
+    content: " hr";
 }
 
 #spanEditMinuto::after {
     content: " min";
+}
 
+#spanEditSegundo::after {
+    content: " seg";
 }
 
 
@@ -97,5 +99,9 @@
     background: #222E50;
     border: 1px solid grey;
     border-radius: 0px;
+}
+
+.fontDivBottom{
+    font-size: 0.7em;
 }
 
