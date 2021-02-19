@@ -23,7 +23,7 @@ var flagLarga = false;
 var flagPersonalizada = false;
 var flagTareaEnCurso = false;
 
-var startTimer = null0
+var startTimer = null;
 
 
 var arrayNombresTareas = ["Ir al mercado",
@@ -838,13 +838,13 @@ pillGrafica.addEventListener("click", () =>{
     
     
     
-    var Lunes = 0;
-    var Martes = 0;
-    var Miercoles = 0;
-    var Jueves = 0;
-    var Viernes = 0;
-    var Sabado = 0;
-    var Domingo = 0;
+    var Lunes = ;;
+    var Martes = ;;
+    var Miercoles = ;;
+    var Jueves = ;;
+    var Viernes = ;;
+    var Sabado = ;;
+    var Domingo = ;;
     Object.values(tareas).forEach(tarea =>{    
         if(tarea.estado == "realizada" && tarea.fechaTerminoUnix >= fechaInicioSemana){
             
