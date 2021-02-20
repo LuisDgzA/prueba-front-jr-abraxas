@@ -893,17 +893,25 @@ pillGrafica.addEventListener("click", () =>{
             label: 'Tareas realizadas',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: arrayDatos
+            data: [2,2,3,4,5,6,7]
         }]
     },
 
         // Configuration options go here
         options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
             title: {
                 display: true,
                 text: 'Historial de la semana'
             }
         }
+        
     });
 })
 
