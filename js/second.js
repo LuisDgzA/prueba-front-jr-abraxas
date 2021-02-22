@@ -507,10 +507,10 @@ function editTask(element){
 /** verificaciones de los botones seleccionados para la duracion de la tarea */
 buttonCorta.addEventListener("click", e =>{
     if(flagMediana == true){
-        buttonMediana.classList.remove("selected");
+        buttonMediana.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagLarga == true){
-        buttonLarga.classList.remove("selected");  
+        buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
     }else if(flagPersonalizada == true){
         inputPersonalizadaHora.value = "";
@@ -518,16 +518,16 @@ buttonCorta.addEventListener("click", e =>{
         inputPersonalizadaSegundo.value = "";
         flagPersonalizada = false;
     }
-    e.target.classList.add("selected");
+    e.target.parentNode.classList.add("selected");
     flagCorta = true;
 })
 
 buttonMediana.addEventListener("click", e =>{
     if(flagCorta == true){
-        buttonCorta.classList.remove("selected");
+        buttonCorta.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagLarga == true){
-        buttonLarga.classList.remove("selected");  
+        buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
     }else if(flagPersonalizada == true){
         inputPersonalizadaHora.value = "";
@@ -535,16 +535,16 @@ buttonMediana.addEventListener("click", e =>{
         inputPersonalizadaSegundo.value = "";
         flagPersonalizada = false;
     }
-    e.target.classList.add("selected");
+    e.target.parentNode.classList.add("selected");
     flagMediana = true;
 })
 
 buttonLarga.addEventListener("click", e =>{
     if(flagCorta == true){
-        buttonCorta.classList.remove("selected");
+        buttonCorta.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagMediana == true){
-        buttonMediana.classList.remove("selected");  
+        buttonMediana.parentNode.classList.remove("selected");  
         flagMediana = false;
     }else if(flagPersonalizada == true){
         inputPersonalizadaHora.value = "";
@@ -552,19 +552,19 @@ buttonLarga.addEventListener("click", e =>{
         inputPersonalizadaSegundo.value = "";
         flagPersonalizada = false;
     }
-    e.target.classList.add("selected");
+    e.target.parentNode.classList.add("selected");
     flagLarga = true;
 })
 
 inputPersonalizadaHora.addEventListener("change", e => {
     if(flagCorta == true){
-        buttonCorta.classList.remove("selected");
+        buttonCorta.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagMediana == true){
-        buttonMediana.classList.remove("selected");  
+        buttonMediana.parentNode.classList.remove("selected");  
         flagMediana = false;
     }else if(flagLarga == true){
-        buttonLarga.classList.remove("selected");  
+        buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
     }
     flagPersonalizada = true;
@@ -572,13 +572,13 @@ inputPersonalizadaHora.addEventListener("change", e => {
 
 inputPersonalizadaMinuto.addEventListener("change", e => {
     if(flagCorta == true){
-        buttonCorta.classList.remove("selected");
+        buttonCorta.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagMediana == true){
-        buttonMediana.classList.remove("selected");  
+        buttonMediana.parentNode.classList.remove("selected");  
         flagMediana = false;
     }else if(flagLarga == true){
-        buttonLarga.classList.remove("selected");  
+        buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
     }
     flagPersonalizada = true;
@@ -586,13 +586,13 @@ inputPersonalizadaMinuto.addEventListener("change", e => {
 
 inputPersonalizadaSegundo.addEventListener("change", e => {
     if(flagCorta == true){
-        buttonCorta.classList.remove("selected");
+        buttonCorta.parentNode.classList.remove("selected");
         flagCorta = false;
     }else if(flagMediana == true){
-        buttonMediana.classList.remove("selected");  
+        buttonMediana.parentNode.classList.remove("selected");  
         flagMediana = false;
     }else if(flagLarga == true){
-        buttonLarga.classList.remove("selected");  
+        buttonLarga.parentNode.classList.remove("selected");  
         flagLarga = false;
     }
     flagPersonalizada = true;
